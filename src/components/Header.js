@@ -20,8 +20,12 @@ const Header = memo(({ loggedIn, onSignOut, userEmail }) => {
         &&
         <MediaQuery maxWidth={659}>
           <div className="header__profile header__profile_burger-menu">
-            <span className="header__email">{userEmail}</span>
-            <button onClick={onSignOut} className="btn header__sign-out">Выйти</button>
+            <span className="header__email">
+              {userEmail}
+            </span>
+            <button onClick={onSignOut} className="btn header__sign-out">
+              Выйти
+            </button>
           </div>
         </MediaQuery>
       }
@@ -47,16 +51,36 @@ const Header = memo(({ loggedIn, onSignOut, userEmail }) => {
               } else {
                 return (
                   <div className="header__profile">
-                    <span className="header__email">{userEmail}</span>
-                    <button onClick={onSignOut} className="btn header__sign-out">Выйти</button>
+                    <span className="header__email">
+                      {userEmail}
+                    </span>
+                    <button onClick={onSignOut} className="btn header__sign-out">
+                      Выйти
+                    </button>
                   </div>
                 )
               }
             }}
           </MediaQuery>
         }
-        {!loggedIn && (location === "/signin") && <Link to="/signup" className="btn header__link">Регистрация</Link>}
-        {!loggedIn && (location === "/signup") && <Link to="/signin" className="btn header__link">Войти</Link>}
+        {
+          !loggedIn
+          &&
+          (location === "/signin")
+          &&
+          <Link to="/signup" className="btn header__link">
+            Регистрация
+          </Link>
+        }
+        {
+          !loggedIn
+          &&
+          (location === "/signup")
+          &&
+          <Link to="/signin" className="btn header__link">
+            Войти
+          </Link>
+        }
       </div>
     </header>
   );

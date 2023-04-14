@@ -16,7 +16,7 @@ const AddPlacePopup = memo(({ isOpen, onClose, onAddPlace }) => {
 
   useEffect(() => {
     onLoadForm();
-  }, [isOpen]);
+  }, [onLoadForm, isOpen]);
 
   return (
     <PopupWithForm
@@ -29,16 +29,36 @@ const AddPlacePopup = memo(({ isOpen, onClose, onAddPlace }) => {
       isValid={isValid}
     >
       <label className="form__field">
-        <input value={values.cardName ?? ''} onChange={handleChange} id="cardName" name="cardName"
-          className="form__input form__input_el_card-name" type="text"
-          placeholder="Название" minLength="2" maxLength="30" required />
-        <span className={errorClassName('cardName')}>{errors['cardName']}</span>
+        <input
+          value={values.cardName ?? ''}
+          onChange={handleChange}
+          id="cardName"
+          name="cardName"
+          className="form__input form__input_el_card-name"
+          type="text"
+          placeholder="Название"
+          minLength="2"
+          maxLength="30"
+          required
+        />
+        <span className={errorClassName('cardName')}>
+          {errors['cardName']}
+        </span>
       </label>
       <label className="form__field">
-        <input value={values.cardLink ?? ''} onChange={handleChange} id="cardLink" name="cardLink"
-          className="form__input form__input_el_card-link" type="url"
-          placeholder="Ссылка на картинку" required />
-        <span className={errorClassName('cardLink')}>{errors['cardLink']}</span>
+        <input
+          value={values.cardLink ?? ''}
+          onChange={handleChange}
+          id="cardLink"
+          name="cardLink"
+          className="form__input form__input_el_card-link"
+          type="url"
+          placeholder="Ссылка на картинку"
+          required
+        />
+        <span className={errorClassName('cardLink')}>
+          {errors['cardLink']}
+        </span>
       </label>
     </PopupWithForm>
   );

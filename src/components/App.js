@@ -36,30 +36,40 @@ function App() {
     handleTokenCheck();
   }, []);
 
+  useEffect(() => {
+    if (loggedIn) {
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then(([userInfo, initialCards]) => {
+          setCurrentUser(userInfo);
+          setCards(initialCards);
+        })
+        .catch(err => alert(err));
+    }
+  }, [loggedIn]);
+
   const handleTokenCheck = () => {
     const token = localStorage.getItem('token');
     if (token) {
       auth.checkToken(token)
         .then((res) => {
           if (res) {
-            handleLogin(res.data.email);
+            setLoggedIn(true);
+            setUserEmail(res.data.email);
+            // handleLogin();
             navigate("/", { replace: true });
           }
         });
     }
   };
 
-  const handleLogin = (email) => {
-    setLoggedIn(true);
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([userInfo, initialCards]) => {
-        setCurrentUser(userInfo);
-        setCards(initialCards);
-      })
-      .catch(err => alert(err));
-
-    setUserEmail(email);
-  };
+  // const handleLogin = () => {
+  //   Promise.all([api.getUserInfo(), api.getInitialCards()])
+  //     .then(([userInfo, initialCards]) => {
+  //       setCurrentUser(userInfo);
+  //       setCards(initialCards);
+  //     })
+  //     .catch(err => alert(err));
+  // };
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -142,7 +152,9 @@ function App() {
       .then((data) => {
         if (data.token) {
           localStorage.setItem('token', data.token);
-          handleLogin(email);
+          setLoggedIn(true);
+          setUserEmail(email);
+          // handleLogin();
           navigate('/', { replace: true });
         }
       })

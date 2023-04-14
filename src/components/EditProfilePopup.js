@@ -11,7 +11,7 @@ const EditProfilePopup = memo(({ isOpen, onClose, onUpdateUser }) => {
     if (currentUser) {
       onLoadForm(currentUser, {}, (currentUser.name && currentUser.about) ? true : false);
     }
-  }, [currentUser, isOpen]);
+  }, [onLoadForm, currentUser, isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -33,16 +33,38 @@ const EditProfilePopup = memo(({ isOpen, onClose, onUpdateUser }) => {
       isValid={isValid}
     >
       <label className="form__field">
-        <input value={values.name ?? ''} onChange={handleChange} id="name" name="name"
-          className="form__input form__input_el_name" type="text"
-          placeholder="Имя" minLength="2" maxLength="40" required />
-        <span className={errorClassName('name')}>{errors['name']}</span>
+        <input
+          value={values.name ?? ''}
+          onChange={handleChange}
+          id="name"
+          name="name"
+          className="form__input form__input_el_name"
+          type="text"
+          placeholder="Имя"
+          minLength="2"
+          maxLength="40"
+          required
+        />
+        <span className={errorClassName('name')}>
+          {errors['name']}
+        </span>
       </label>
       <label className="form__field">
-        <input value={values.about ?? ''} onChange={handleChange} id="about" name="about"
-          className="form__input form__input_el_job" type="text"
-          placeholder="Занятие" minLength="2" maxLength="200" required />
-        <span className={errorClassName('about')}>{errors['about']}</span>
+        <input
+          value={values.about ?? ''}
+          onChange={handleChange}
+          id="about"
+          name="about"
+          className="form__input form__input_el_job"
+          type="text"
+          placeholder="Занятие"
+          minLength="2"
+          maxLength="200"
+          required
+        />
+        <span className={errorClassName('about')}>
+          {errors['about']}
+        </span>
       </label>
     </PopupWithForm>
   );

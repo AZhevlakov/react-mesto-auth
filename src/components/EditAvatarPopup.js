@@ -7,7 +7,7 @@ const EditAvatarPopup = memo(({ isOpen, onClose, onUpdateAvatar }) => {
 
   useEffect(() => {
     onLoadForm();
-  }, [isOpen]);
+  }, [onLoadForm, isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -28,10 +28,19 @@ const EditAvatarPopup = memo(({ isOpen, onClose, onUpdateAvatar }) => {
       isValid={isValid}
     >
       <label className="form__field">
-        <input value={values.avatar ?? ''} onChange={handleChange} id="avatar" name="avatar"
-          className="form__input form__input_el_avatar-link" type="url"
-          placeholder="Ссылка на аватар" required />
-        <span className={errorClassName('avatar')}>{errors['avatar']}</span>
+        <input
+          value={values.avatar ?? ''}
+          onChange={handleChange}
+          id="avatar"
+          name="avatar"
+          className="form__input form__input_el_avatar-link"
+          type="url"
+          placeholder="Ссылка на аватар"
+          required
+        />
+        <span className={errorClassName('avatar')}>
+          {errors['avatar']}
+        </span>
       </label>
     </PopupWithForm>
   );

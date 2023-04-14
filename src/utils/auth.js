@@ -8,7 +8,8 @@ const checkStatus = (res) => {
 };
 
 const request = (url, options) => {
-  return fetch(url, options).then(res => checkStatus(res))
+  return fetch(url, options)
+    .then(res => checkStatus(res))
 };
 
 export const register = (password, email) => {
